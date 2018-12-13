@@ -18,7 +18,8 @@ class _MochichiState extends State<Mochichi> {
     return new MaterialApp(
       home: LoginPage(),
       routes: <String, WidgetBuilder> {
-        '/landingpage': (BuildContext context) => new Mochichi()
+        '/landingpage': (BuildContext context) => new Mochichi(),
+        '/signup': (BuildContext context) => new SignUpPage()
       },
     );
   }

@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               Text("Don't have an account?"),
               SizedBox(height: 10.0,),
               RaisedButton(
-                child: Text('Sign up'),
+                child: Text('Sign Up'),
                 color: Colors.blue,
                 textColor: Colors.white,
                 elevation: 7.0,
