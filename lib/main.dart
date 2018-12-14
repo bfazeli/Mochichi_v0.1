@@ -15,11 +15,12 @@ class Mochichi extends StatefulWidget {
 class _MochichiState extends State<Mochichi> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       home: LoginPage(),
       routes: <String, WidgetBuilder> {
-        '/landingpage': (BuildContext context) => new Mochichi(),
-        '/signup': (BuildContext context) => new SignUpPage()
+        '/landingpage': (BuildContext context) => Mochichi(),
+        '/signup': (BuildContext context) => SignUpPage(),
+        '/homepage': (BuildContext context) => HomePage(),
       },
     );
   }
