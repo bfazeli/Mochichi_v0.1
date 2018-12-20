@@ -11,20 +11,16 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final _registerEmailController = TextEditingController();
   final _registerPassController = TextEditingController();
   final _registerPassController2 = TextEditingController();
-
-  String _email;
-  String _password;
-  String _confirmPass;
-  String _error;
 
   void validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
       FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: _email,
-                    password: _password
+                    email: _registerEmailController.text,
+                    password: _registerPassController2.text,
                   )
                   .then((signedInUser) {
                     UserManagement().storeNewUser(signedInUser, context);
@@ -51,6 +47,7 @@ class _SignUpFormState extends State<SignUpForm> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
+                controller: _registerEmailController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter an Email';
@@ -59,10 +56,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     return value.contains(exp) ? null : "Email is not valid";
                   }
                 },
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(labelText: 'Email'),
-                onFieldSubmitted: ((value) {
-                  _email = value;
-                }),
               ),
               SizedBox(height: 15.0,),
               TextFormField(
@@ -70,7 +65,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 validator: (value) => value.length < 6 ? 'Please enter a password with at least 6 characters' : null,
                 decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                onSaved: (value) => _password = value,
               ),
               SizedBox(height: 15.0,),
               TextFormField(
@@ -78,11 +72,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 validator: (value) => (value != _registerPassController.text) ? 'Password does not match' : null,
                 decoration: InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
-                onFieldSubmitted: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
               ),
               // Text(
               //   _error,
