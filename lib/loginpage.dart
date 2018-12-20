@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 const padding = EdgeInsets.all(25.0);
 
@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                     _password = value;
                   });
                 },
+                obscureText: true,
               ),
               SizedBox(height: 20.0,),
               RaisedButton(
@@ -45,7 +46,15 @@ class _LoginPageState extends State<LoginPage> {
                 textColor: Colors.white,
                 elevation: 7.0,
                 onPressed: () {
-
+                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: _email,
+                    password: _password
+                  ).then((FirebaseUser user) {
+                    Navigator.of(context).pushReplacementNamed('/homepage');
+                  })
+                  .catchError((error) {
+                    print(error);
+                  });
                 },
               ),
               SizedBox(height: 15.0,),
