@@ -19,16 +19,15 @@ class _SignUpFormState extends State<SignUpForm> {
     final form = _formKey.currentState;
     if (form.validate()) {
       FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: _registerEmailController.text,
-                    password: _registerPassController2.text,
-                  )
-                  .then((signedInUser) {
-                    UserManagement().storeNewUser(signedInUser, context);
-                  })
-                  .catchError( (error) {
-                    
-                    print(error.getErrorCoder());
-                  });
+        email: _registerEmailController.text,
+        password: _registerPassController2.text,
+      )
+      .then((signedInUser) {
+        UserManagement().storeNewUser(signedInUser, context);
+      })
+      .catchError( (error) {
+        print(error.getErrorCoder());
+      });
     }
     else {
       print("Form is not valid");
