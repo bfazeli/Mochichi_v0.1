@@ -25,11 +25,10 @@ class _SignUpFormState extends State<SignUpForm> {
       .then((signedInUser) {
         UserManagement().storeNewUser(signedInUser, context);
       })
-      .catchError( (error) {
+      .catchError((error) {
         print(error.getErrorCoder());
       });
-    }
-    else {
+    } else {
       print("Form is not valid");
     }
   }
@@ -51,24 +50,33 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (value.isEmpty) {
                     return 'Please enter an Email';
                   } else {
-                    RegExp exp = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+\$");
+                    RegExp exp = new RegExp(
+                        "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+\$");
                     return value.contains(exp) ? null : "Email is not valid";
                   }
                 },
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(labelText: 'Email'),
               ),
-              SizedBox(height: 15.0,),
+              SizedBox(
+                height: 15.0,
+              ),
               TextFormField(
                 controller: _registerPassController,
-                validator: (value) => value.length < 6 ? 'Please enter a password with at least 6 characters' : null,
+                validator: (value) => value.length < 6
+                    ? 'Please enter a password with at least 6 characters'
+                    : null,
                 decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
-              SizedBox(height: 15.0,),
+              SizedBox(
+                height: 15.0,
+              ),
               TextFormField(
                 controller: _registerPassController2,
-                validator: (value) => (value != _registerPassController.text) ? 'Password does not match' : null,
+                validator: (value) => (value != _registerPassController.text)
+                    ? 'Password does not match'
+                    : null,
                 decoration: InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
               ),
@@ -77,7 +85,9 @@ class _SignUpFormState extends State<SignUpForm> {
               //   textAlign: TextAlign.center,
               //   style: TextStyle(color: Colors.red),
               // ),
-              SizedBox(height: 20.0,),
+              SizedBox(
+                height: 20.0,
+              ),
               RaisedButton(
                 child: Text('Sign Up'),
                 color: Colors.blue,

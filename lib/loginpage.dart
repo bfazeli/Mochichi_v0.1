@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'strings.dart';
 
 const padding = EdgeInsets.all(25.0);
 
@@ -15,6 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(Strings.appTitle),
+      ),
       body: Container(
         padding: padding,
         child: Column(

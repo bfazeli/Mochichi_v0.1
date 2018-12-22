@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'strings.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard"),
+        title: Text(Strings.appTitle),
         centerTitle: true,
       ),
       body: Center(

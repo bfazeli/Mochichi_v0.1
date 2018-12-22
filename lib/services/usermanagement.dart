@@ -7,6 +7,7 @@ class UserManagement {
       'email': user.email,
       'uid': user.uid
     }).then((value) {
+      print(value);
       Navigator.of(context).pop();
       Navigator.of(context).pushReplacementNamed('/homepage');
     })
