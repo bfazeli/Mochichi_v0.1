@@ -10,36 +10,59 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: Text(Strings.appTitle),
-        centerTitle: true,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('../assets/images/porter.jpg'),
+          fit: BoxFit.cover
+        )
       ),
-      body: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("You are now logged in"),
-              SizedBox(
-                height: 15.0,
-              ),
-              OutlineButton(
-                borderSide: BorderSide(
-                  color: Colors.red, style: BorderStyle.solid, width: 3.0
+      child: new Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            Strings.appTitle,
+            style: TextStyle(
+              fontFamily: 'bebas-neue',
+              fontSize: 25,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+
+            },
+          ),
+        ),
+        body: Center(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("You are now logged in"),
+                SizedBox(
+                  height: 15.0,
                 ),
-                child: Text("Logout"),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut()
-                  .then((value) {
-                    Navigator.of(context).pushReplacementNamed('/landingpage');
-                  })
-                  .catchError((error) {
-                    print(error);
-                  });
-                },
-              )
-            ],
+                OutlineButton(
+                  borderSide: BorderSide(
+                    color: Colors.red, style: BorderStyle.solid, width: 3.0
+                  ),
+                  child: Text("Logout"),
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut()
+                    .then((value) {
+                      Navigator.of(context).pushReplacementNamed('/landingpage');
+                    })
+                    .catchError((error) {
+                      print(error);
+                    });
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

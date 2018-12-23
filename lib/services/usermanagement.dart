@@ -3,15 +3,12 @@ import 'package:flutter/widgets.dart';
 
 class UserManagement {
   storeNewUser(user, context) {
-    Firestore.instance.collection('/users').add({
-      'email': user.email,
-      'uid': user.uid
-    }).then((value) {
-      print(value);
+    Firestore.instance
+        .collection('/users')
+        .add({'email': user.email, 'uid': user.uid}).then((value) {
       Navigator.of(context).pop();
       Navigator.of(context).pushReplacementNamed('/homepage');
-    })
-    .catchError((error) {
+    }).catchError((error) {
       print(error);
     });
   }

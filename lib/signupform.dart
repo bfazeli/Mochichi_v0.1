@@ -80,11 +80,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 decoration: InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
               ),
-              // Text(
-              //   _error,
-              //   textAlign: TextAlign.center,
-              //   style: TextStyle(color: Colors.red),
-              // ),
               SizedBox(
                 height: 20.0,
               ),
