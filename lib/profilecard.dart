@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'photobrowser.dart';
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -8,9 +9,12 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   
   Widget _buildBackground() {
-    return Image.asset(
-      'assets/images/pic1.jpg',
-      fit: BoxFit.cover,  
+    return PhotoBrowser(
+      photoAssetPaths: [
+        'assets/images/pic1.jpg',
+        'assets/images/pic2.jpg'
+      ],
+      visiblePhotoIndex: 1,
     );
   }
 
@@ -44,6 +48,13 @@ class _ProfileCardState extends State<ProfileCard> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0
+                    ),
+                  ),
+                  Text(
+                    'Some description',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0
                     ),
                   ),
                 ],
