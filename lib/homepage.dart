@@ -8,19 +8,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     image: AssetImage('../assets/images/porter.jpg'),
-      //     fit: BoxFit.cover
-      //   )
-      // ),
-      child: new Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
+Widget _buildAppBar() {
+  return AppBar(
           backgroundColor: Colors.teal,
           elevation: 0,
           title: Text(
@@ -37,7 +26,22 @@ class _HomePageState extends State<HomePage> {
 
             },
           ),
-        ),
+  );
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // decoration: BoxDecoration(
+      //   image: DecorationImage(
+      //     image: AssetImage('../assets/images/porter.jpg'),
+      //     fit: BoxFit.cover
+      //   )
+      // ),
+      child: new Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _buildAppBar(),
         body: Center(
           child: ProfileCard(), 
           //Container(
