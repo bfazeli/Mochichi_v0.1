@@ -48,7 +48,33 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
   }
 
   Widget _buildPhotoControls() {
-    return new Container();
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        GestureDetector(
+          onTap: _prevImage,
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
+            heightFactor: 1.0,
+            alignment: Alignment.topLeft,
+            child: Container(
+              color: Colors.transparent,
+            )
+          ),
+        ),
+        GestureDetector(
+          onTap: _nextImage,
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
+            heightFactor: 1.0,
+            alignment: Alignment.topRight,
+            child: Container(
+              color: Colors.transparent,
+            )
+          ),
+        )
+      ],
+    );
   }
 
   @override
