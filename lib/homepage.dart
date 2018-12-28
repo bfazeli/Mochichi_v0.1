@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'strings.dart';
+import 'profilecard.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,32 +39,33 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Center(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("You are now logged in"),
-                SizedBox(
-                  height: 15.0,
-                ),
-                OutlineButton(
-                  borderSide: BorderSide(
-                    color: Colors.red, style: BorderStyle.solid, width: 3.0
-                  ),
-                  child: Text("Logout"),
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut()
-                    .then((value) {
-                      Navigator.of(context).pushReplacementNamed('/landingpage');
-                    })
-                    .catchError((error) {
-                      print(error);
-                    });
-                  },
-                )
-              ],
-            ),
-          ),
+          child: ProfileCard(), 
+          //Container(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //       Text("You are now logged in"),
+          //       SizedBox(
+          //         height: 15.0,
+          //       ),
+          //       OutlineButton(
+          //         borderSide: BorderSide(
+          //           color: Colors.red, style: BorderStyle.solid, width: 3.0
+          //         ),
+          //         child: Text("Logout"),
+          //         onPressed: () {
+          //           FirebaseAuth.instance.signOut()
+          //           .then((value) {
+          //             Navigator.of(context).pushReplacementNamed('/landingpage');
+          //           })
+          //           .catchError((error) {
+          //             print(error);
+          //           });
+          //         },
+          //       )
+          //     ],
+          //   ),
+          // ),
         ),
       ),
     );
