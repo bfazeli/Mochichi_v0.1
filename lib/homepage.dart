@@ -10,22 +10,20 @@ class HomePage extends StatefulWidget {
 
 Widget _buildAppBar() {
   return AppBar(
-          backgroundColor: Colors.teal,
-          elevation: 0,
-          title: Text(
-            Strings.appTitle,
-            style: TextStyle(
-              fontFamily: 'bebas-neue',
-              fontSize: 25,
-            ),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-
-            },
-          ),
+    backgroundColor: Colors.teal,
+    elevation: 0,
+    title: Text(
+      Strings.appTitle,
+      style: TextStyle(
+        fontFamily: 'bebas-neue',
+        fontSize: 25,
+      ),
+    ),
+    centerTitle: true,
+    leading: IconButton(
+      icon: Icon(Icons.menu),
+      onPressed: () {},
+    ),
   );
 }
 
@@ -43,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         appBar: _buildAppBar(),
         body: Center(
-          child: ProfileCard(), 
+          child: ProfileCard(),
           //Container(
           //   child: Column(
           //     mainAxisAlignment: MainAxisAlignment.center,

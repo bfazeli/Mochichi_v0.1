@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'selectedphotoindicator.dart';
 
 class PhotoBrowser extends StatefulWidget {
   final List<String> photoAssetPaths;
@@ -14,37 +15,38 @@ class PhotoBrowser extends StatefulWidget {
 }
 
 class _PhotoBrowserState extends State<PhotoBrowser> {
-  int visiblePhotoIndex; 
+  int visiblePhotoIndex;
 
   @override
-    void initState() {
-      super.initState();
-      visiblePhotoIndex = widget.visiblePhotoIndex;
-    }
+  void initState() {
+    super.initState();
+    visiblePhotoIndex = widget.visiblePhotoIndex;
+  }
 
   // Widget may update so want to change the index of the image
   @override
-    void didUpdateWidget(PhotoBrowser oldWidget) {
-      // TODO: implement didUpdateWidget
-      super.didUpdateWidget(oldWidget);
-      if(widget.visiblePhotoIndex != oldWidget.visiblePhotoIndex) {
-        setState(() {
-                  visiblePhotoIndex = widget.visiblePhotoIndex;
-                });
-      }
+  void didUpdateWidget(PhotoBrowser oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    if (widget.visiblePhotoIndex != oldWidget.visiblePhotoIndex) {
+      setState(() {
+        visiblePhotoIndex = widget.visiblePhotoIndex;
+      });
     }
+  }
 
   void _prevImage() {
     setState(() {
-          visiblePhotoIndex = visiblePhotoIndex > 0 ? visiblePhotoIndex - 1 : 0;
-        });
+      visiblePhotoIndex = visiblePhotoIndex > 0 ? visiblePhotoIndex - 1 : 0;
+    });
   }
 
   void _nextImage() {
     setState(() {
-          visiblePhotoIndex = visiblePhotoIndex < widget.photoAssetPaths.length - 1
-            ? visiblePhotoIndex + 1 : visiblePhotoIndex;
-        });
+      visiblePhotoIndex = visiblePhotoIndex < widget.photoAssetPaths.length - 1
+          ? visiblePhotoIndex + 1
+          : visiblePhotoIndex;
+    });
   }
 
   Widget _buildPhotoControls() {
@@ -54,24 +56,22 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
         GestureDetector(
           onTap: _prevImage,
           child: FractionallySizedBox(
-            widthFactor: 0.5,
-            heightFactor: 1.0,
-            alignment: Alignment.topLeft,
-            child: Container(
-              color: Colors.transparent,
-            )
-          ),
+              widthFactor: 0.5,
+              heightFactor: 1.0,
+              alignment: Alignment.topLeft,
+              child: Container(
+                color: Colors.transparent,
+              )),
         ),
         GestureDetector(
           onTap: _nextImage,
           child: FractionallySizedBox(
-            widthFactor: 0.5,
-            heightFactor: 1.0,
-            alignment: Alignment.topRight,
-            child: Container(
-              color: Colors.transparent,
-            )
-          ),
+              widthFactor: 0.5,
+              heightFactor: 1.0,
+              alignment: Alignment.topRight,
+              child: Container(
+                color: Colors.transparent,
+              )),
         )
       ],
     );
@@ -93,7 +93,10 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
           top: 0.0,
           left: 0.0,
           right: 0.0,
-          child: Container(),
+          child: SelectedPhotoIndicator(
+            photoCount: widget.photoAssetPaths.length,
+            visiblePhotoIndex: visiblePhotoIndex,
+          ),
         ),
 
         // Photo controll
