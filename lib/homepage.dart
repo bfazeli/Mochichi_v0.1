@@ -11,16 +11,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('../assets/images/porter.jpg'),
-          fit: BoxFit.cover
-        )
-      ),
+      // decoration: BoxDecoration(
+      //   image: DecorationImage(
+      //     image: AssetImage('../assets/images/porter.jpg'),
+      //     fit: BoxFit.cover
+      //   )
+      // ),
       child: new Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.teal,
           elevation: 0,
           title: Text(
             Strings.appTitle,
