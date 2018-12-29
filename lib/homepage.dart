@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'strings.dart';
-import 'profilecard.dart';
+import 'cardflipper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         appBar: _buildAppBar(),
         body: Center(
-          child: ProfileCard(),
+          child: CardFlipper(),
           //Container(
           //   child: Column(
           //     mainAxisAlignment: MainAxisAlignment.center,

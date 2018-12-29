@@ -49,10 +49,14 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
     });
   }
 
+  // Implemnent this later
+  void _profileInfo() {}
+
   Widget _buildPhotoControls() {
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
+        // Previous image, left half
         GestureDetector(
           onTap: _prevImage,
           child: FractionallySizedBox(
@@ -63,16 +67,29 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
                 color: Colors.transparent,
               )),
         ),
+        // Next image, right half
         GestureDetector(
           onTap: _nextImage,
           child: FractionallySizedBox(
               widthFactor: 0.5,
-              heightFactor: 1.0,
+              heightFactor: 0.8,
               alignment: Alignment.topRight,
               child: Container(
                 color: Colors.transparent,
               )),
-        )
+        ),
+        // Account info, bottom half
+        GestureDetector(
+          onTap: _profileInfo,
+          child: FractionallySizedBox(
+            widthFactor: 1.0,
+            heightFactor: 0.2,
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
+        ),
       ],
     );
   }
