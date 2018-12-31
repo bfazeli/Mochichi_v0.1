@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './services/usermanagement.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 const padding = EdgeInsets.all(25.0);
 
@@ -28,6 +30,10 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _registerEmailController.text,
         password: _registerPassController2.text,
       )
+          .then((res) {
+            final fileName = Uuid().v4().toString();
+            // const ref = FirebaseStorage();
+          })
           .then((signedInUser) {
         UserManagement().storeNewUser(signedInUser, context);
       }).catchError((error) {
@@ -40,7 +46,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future getFirstImage() async {
     var image = await ImagePicker.pickImage(
-        source: ImageSource.camera); // Change this to camera later
+        source: ImageSource.gallery); // Change this to camera later
     setState(() {
       _image1 = image;
     });
@@ -48,7 +54,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future getSecondImage() async {
     var image = await ImagePicker.pickImage(
-        source: ImageSource.camera); // Change this to camera later
+        source: ImageSource.gallery); // Change this to camera later
     setState(() {
       _image2 = image;
     });

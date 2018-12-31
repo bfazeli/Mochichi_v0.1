@@ -1,5 +1,6 @@
 class Strings {
-  static String appTitle = "Mochichi";
-  static String signUp = "Sign Up";
-  static String cancel = "Cancel";
+  static final String appTitle = "Mochichi";
+  static final String signUp = "Sign Up";
+  static final String cancel = "Cancel";
+  static final String login = "Login";
 }
