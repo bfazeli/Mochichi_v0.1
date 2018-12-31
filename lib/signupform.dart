@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './services/usermanagement.dart';
+import 'package:image_picker/image_picker.dart';
 
 const padding = EdgeInsets.all(25.0);
 
@@ -15,22 +18,40 @@ class _SignUpFormState extends State<SignUpForm> {
   final _registerPassController = TextEditingController();
   final _registerPassController2 = TextEditingController();
 
+  File _image1, _image2;
+
   void validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: _registerEmailController.text,
         password: _registerPassController2.text,
       )
-      .then((signedInUser) {
+          .then((signedInUser) {
         UserManagement().storeNewUser(signedInUser, context);
-      })
-      .catchError((error) {
+      }).catchError((error) {
         print(error.getErrorCoder());
       });
     } else {
       print("Form is not valid");
     }
+  }
+
+  Future getFirstImage() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera); // Change this to camera later
+    setState(() {
+      _image1 = image;
+    });
+  }
+
+  Future getSecondImage() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera); // Change this to camera later
+    setState(() {
+      _image2 = image;
+    });
   }
 
   @override
@@ -44,6 +65,43 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 10, color: Colors.tealAccent),
+                          borderRadius: const BorderRadius.all(
+                              const Radius.circular(8.0))),
+                      margin: const EdgeInsets.all(4.0),
+                      child: GestureDetector(
+                        onTap: getFirstImage,
+                        child: _image1 == null
+                            ? Image.asset(
+                                'assets/images/place_holder_image.png')
+                            : Image.file(_image1),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 10, color: Colors.tealAccent),
+                          borderRadius: const BorderRadius.all(
+                              const Radius.circular(8.0))),
+                      margin: const EdgeInsets.all(4.0),
+                      child: GestureDetector(
+                          onTap: getSecondImage,
+                          child: _image2 == null
+                              ? Image.asset(
+                                  'assets/images/place_holder_image.png')
+                              : Image.file(_image2)),
+                    ),
+                  ),
+                ],
+              ),
               TextFormField(
                 controller: _registerEmailController,
                 validator: (value) {

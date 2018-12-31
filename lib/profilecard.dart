@@ -43,11 +43,14 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    'First Last',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'First Last',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0
+                      ),
                     ),
                   ),
                   Text(

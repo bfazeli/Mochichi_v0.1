@@ -16,6 +16,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  image_picker: ^0.4.10
+
   firebase_auth:
   cloud_firestore:
   # firebase_core: ^0.2.5+1
@@ -45,6 +47,7 @@ flutter:
    - assets/images/porter.jpg
    - assets/images/pic1.jpg
    - assets/images/pic2.jpg
+   - assets/images/place_holder_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

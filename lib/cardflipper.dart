@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import 'profilecard.dart';
 
 class CardFlipper extends StatefulWidget {
@@ -18,6 +21,16 @@ class _CardFlipperState extends State<CardFlipper> with TickerProviderStateMixin
     void initState() {
       // TODO: implement initState
       super.initState();
+
+      finishScrollController = AnimationController(
+        duration: const Duration(milliseconds: 150),
+        vsync: this,
+      )
+      ..addListener(() {
+        setState(() {
+                  scrollPercent = lerpDouble(finishScrollStart, finishScrollEnd, finishScrollController.value);
+                });
+      });
     }
 
   @override
@@ -45,6 +58,13 @@ class _CardFlipperState extends State<CardFlipper> with TickerProviderStateMixin
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
+    // TODO: Resume work on this
+    final numCards = 3;
+
+    finishScrollStart = scrollPercent;
+    finishScrollEnd = (scrollPercent * numCards).round() / numCards; // Get back scroll percent between 0 and 1
+    finishScrollController.forward(from: 0.0);  // Run full animation
+
     setState(() {
           startDrag = null;
           startDragPercentScroll = null;
@@ -63,8 +83,7 @@ class _CardFlipperState extends State<CardFlipper> with TickerProviderStateMixin
   Widget _buildCard(int cardIndex, int cardCount, double scrollPercent) {
     // Determine how many cards scrolled to the left
     final cardScrollPercent = scrollPercent /
-        (1 /
-            cardCount); // Amount of scroll representing 1 card moving off screen
+        (1 / cardCount); // Amount of scroll representing 1 card moving off screen
 
     return FractionalTranslation(
         translation: Offset((cardIndex - cardScrollPercent), 0.0),
