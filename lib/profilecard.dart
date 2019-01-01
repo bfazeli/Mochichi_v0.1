@@ -75,28 +75,30 @@ class _ProfileCardState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0x11000000),
-              blurRadius: 5.0,
-              spreadRadius: 2.0,
-            )
-          ]
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Material(
-            child: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                _buildBackground(),
-                _buildProfileSynopsis(),
-              ],
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x11000000),
+                blurRadius: 5.0,
+                spreadRadius: 2.0,
+              )
+            ]
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Material(
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  _buildBackground(),
+                  _buildProfileSynopsis(),
+                ],
+              ),
             ),
           ),
         ),

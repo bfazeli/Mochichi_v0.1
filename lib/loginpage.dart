@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'strings.dart';
 
-const padding = EdgeInsets.only(top: 25, right: 25, bottom: 25, left: 25);
+const padding = EdgeInsets.all(25.0);
 
 class LoginPage extends StatefulWidget {
   @override
@@ -25,6 +25,9 @@ class _LoginPageState extends State<LoginPage> {
     }).catchError((error) {
       print(error);
     });
+    setState(() {
+      _loading = false;
+    });
   }
 
   @override
@@ -33,46 +36,51 @@ class _LoginPageState extends State<LoginPage> {
       // appBar: AppBar(
       //   title: Text(Strings.login),
       // ),
-      body: SafeArea(
-        child: Container(
-          padding: padding,
+      body: Container(
+        padding: padding,
+        child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 75, top: 30),
                 child: Image.asset('assets/images/banner.jpg'),
               ),
-              TextField(
-                decoration: InputDecoration(hintText: 'Email'),
-                onChanged: (value) {
-                  setState(() {
-                    _email = value;
-                  });
-                },
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextField(
-                decoration: InputDecoration(hintText: 'Password'),
-                onChanged: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
-                obscureText: true,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              RaisedButton(
-                child: Text('Login'),
-                color: Colors.blue,
-                textColor: Colors.white,
-                elevation: 7.0,
-                onPressed: loginUser,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(hintText: 'Email'),
+                    onChanged: (value) {
+                      setState(() {
+                        _email = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(hintText: 'Password'),
+                    onChanged: (value) {
+                      setState(() {
+                        _password = value;
+                      });
+                    },
+                    obscureText: true,
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  RaisedButton(
+                    child: Text('Login'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    elevation: 7.0,
+                    onPressed: loginUser,
+                  )
+                ],
               ),
               SizedBox(
                 height: 15.0,
