@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './services/loader.dart';
 import 'strings.dart';
 
 const padding = EdgeInsets.all(25.0);
@@ -48,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.only(bottom: 75, top: 30),
                   child: Image.asset('assets/images/banner.jpg'),
                 ),
+                Loader(),
                 Expanded(
                   child: ListView(
                     children: <Widget>[
