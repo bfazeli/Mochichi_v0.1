@@ -75,8 +75,6 @@ class _SignUpFormState extends State<SignUpForm> {
           child: Container(
             padding: padding,
             child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Row(
                   children: <Widget>[
