@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'strings.dart';
@@ -14,6 +15,7 @@ class Mochichi extends StatefulWidget {
 }
 
 class _MochichiState extends State<Mochichi> {
+  var setting = Firestore.instance.settings(timestampsInSnapshotsEnabled: true);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

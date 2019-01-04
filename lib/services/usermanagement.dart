@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class UserManagement {
-  storeNewUser(user, images, context) async {
+  storeNewUser(user, images, context)  {
     final List<String> fileNames = [Uuid().v4().toString(), Uuid().v4().toString()];
 
     for (var i = 0; i < images.length; ++i) {
@@ -22,4 +22,5 @@ class UserManagement {
       print(error);
     });
   }
+  
 }
