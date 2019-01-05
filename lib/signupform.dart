@@ -14,6 +14,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final _registerNameController = TextEditingController();
   final _registerEmailController = TextEditingController();
   final _registerPassController = TextEditingController();
   final _registerPassController2 = TextEditingController();
@@ -114,6 +115,24 @@ class _SignUpFormState extends State<SignUpForm> {
                   ],
                 ),
                 TextFormField(
+                  controller: _registerNameController,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter your name';
+                    } else {
+                      RegExp exp = new RegExp(
+                          "(^[A-Z][a-z,.'-]+ [A-Z][a-z,.'-]+)|(^[A-Z][a-z,.'-]+)|(^[a-z]+)\$");
+                      return value.contains(exp) ? null : "Name is not valid";
+                    }
+                  },
+                  autofocus: true,
+                  autocorrect: false,
+                  maxLines: 1,
+                  maxLengthEnforced: true,
+                  maxLength: 70,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextFormField(
                   controller: _registerEmailController,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -124,6 +143,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       return value.contains(exp) ? null : "Email is not valid";
                     }
                   },
+                  autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(labelText: 'Email'),
                 ),
