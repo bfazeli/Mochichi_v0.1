@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './services/loader.dart';
+import './services//usermanagement.dart';
 import 'strings.dart';
 
 const padding = EdgeInsets.all(25.0);
@@ -41,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: _email, password: _password)
         .then((FirebaseUser user) {
+          UserManagement().fetchCurrentUser();
       Navigator.of(context).pushReplacementNamed('/homepage');
     }).catchError((error) {
       var message = "";
@@ -91,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset('assets/images/banner.jpg'),
                 ),
                 _loading
-                    ? Loader()
+                    ? Center(child: Loader())
                     : Expanded(
                         child: ListView(
                           children: <Widget>[

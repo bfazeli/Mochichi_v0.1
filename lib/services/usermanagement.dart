@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image/image.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class UserManagement {
-  storeNewUser(user, images, context) async {
+  storeNewUser(user, name, images, context) async {
     StorageReference ref = FirebaseStorage.instance.ref();
     StorageUploadTask uploadTask;
 
@@ -19,22 +21,35 @@ class UserManagement {
     Navigator.of(context).pushReplacementNamed('/homepage');
 
     for (var i = 0; i < images.length; i++) {
-      uploadTask = ref.child('${user.uid}/' + fileNames[i])
-      .putFile(images[i]);
-      imageUrls['imageUrl${i + 1}'] = (await (await uploadTask.onComplete).ref.getDownloadURL()).toString();
+      uploadTask = ref.child('${user.uid}/' + fileNames[i]).putFile(images[i]);
+      imageUrls['imageUrl${i + 1}'] =
+          (await (await uploadTask.onComplete).ref.getDownloadURL()).toString();
     }
-    
 
     final docData = {
-      'email': user.email, 
-      'uid': user.uid, 
-      'imageUrl1' : imageUrls['imageUrl1'], 
-      'imageUrl2' : imageUrls['imageUrl1'], 
+      'name': name,
+      'email': user.email,
+      'uid': user.uid,
+      'imageUrl1': imageUrls['imageUrl1'],
+      'imageUrl2': imageUrls['imageUrl1'],
     };
 
     Firestore.instance
         .collection('users')
         .document(user.uid.toString())
         .setData(docData);
+  }
+
+  // Change void to the result from firebase
+  Future<void> fetchCurrentUser() async {
+    FirebaseAuth.instance.currentUser().then((user) {
+      Firestore.instance
+          .collection("users")
+          .document(user.uid)
+          .get()
+          .then((snapshot) {
+            print(snapshot.data);
+          });
+    });
   }
 }
