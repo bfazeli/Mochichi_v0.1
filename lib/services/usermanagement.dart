@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image/image.dart';
 import 'package:uuid/uuid.dart';
+import 'package:mochichi/user_data.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -30,8 +31,7 @@ class UserManagement {
       'name': name,
       'email': user.email,
       'uid': user.uid,
-      'imageUrl1': imageUrls['imageUrl1'],
-      'imageUrl2': imageUrls['imageUrl1'],
+      'imageUrls': imageUrls,
     };
 
     Firestore.instance
@@ -49,6 +49,10 @@ class UserManagement {
           .get()
           .then((snapshot) {
             print(snapshot.data);
+            // Work on this portion
+            //  - Need to send data over to homepage,
+            //      (look into this)
+            var currentUser = UserViewModel.fromJson(snapshot.data);
           });
     });
   }

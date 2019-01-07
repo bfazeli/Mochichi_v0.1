@@ -17,8 +17,6 @@ class _LoginPageState extends State<LoginPage> {
   String _email;
   String _password;
 
-  Widget loader = Loader();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
