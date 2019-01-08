@@ -41,19 +41,32 @@ class UserManagement {
   }
 
   // Change void to the result from firebase
-  Future<void> fetchCurrentUser() async {
-    FirebaseAuth.instance.currentUser().then((user) {
-      Firestore.instance
+  Future<UserViewModel> fetchCurrentUser() async {
+    return await FirebaseAuth.instance.currentUser().then((user) {
+      return Firestore.instance
           .collection("users")
           .document(user.uid)
           .get()
           .then((snapshot) {
-            print(snapshot.data);
-            // Work on this portion
-            //  - Need to send data over to homepage,
-            //      (look into this)
-            var currentUser = UserViewModel.fromJson(snapshot.data);
-          });
+        return UserViewModel.fromJson(snapshot.data);
+      });
+    });
+  }
+
+  Future<List<UserViewModel>> fetchAllUsers(uid) async {
+    return Firestore.instance
+        .collection("users")
+        .limit(10)
+        .getDocuments()
+        .then((result) {
+      List<UserViewModel> listOfUsers = [];
+      for (var snapShot in result.documents) {
+        if (snapShot.data['uid'] != uid) {
+          listOfUsers.add(UserViewModel.fromJson(snapShot.data));
+        }
+      }
+      print(listOfUsers);
+      return listOfUsers;
     });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './services/loader.dart';
-import './services//usermanagement.dart';
+import './services/user_crud.dart';
 import 'strings.dart';
 
 const padding = EdgeInsets.all(25.0);
@@ -40,7 +40,12 @@ class _LoginPageState extends State<LoginPage> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: _email, password: _password)
         .then((FirebaseUser user) {
-          UserManagement().fetchCurrentUser();
+          UserManagement().fetchCurrentUser().then((res) {
+            print("Fetching current user: ${res.name}");
+          });
+
+          UserManagement().fetchAllUsers(user.uid);
+          
       Navigator.of(context).pushReplacementNamed('/homepage');
     }).catchError((error) {
       var message = "";
