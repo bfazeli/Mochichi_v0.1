@@ -53,20 +53,23 @@ class UserManagement {
     });
   }
 
-  Future<List<UserViewModel>> fetchAllUsers(uid) async {
-    return Firestore.instance
-        .collection("users")
-        .limit(10)
-        .getDocuments()
-        .then((result) {
-      List<UserViewModel> listOfUsers = [];
-      for (var snapShot in result.documents) {
-        if (snapShot.data['uid'] != uid) {
-          listOfUsers.add(UserViewModel.fromJson(snapShot.data));
+  Future<List<UserViewModel>> fetchAllUsers() async {
+    
+    return await FirebaseAuth.instance.currentUser().then((user) {
+      return Firestore.instance
+          .collection("users")
+          .limit(10)
+          .getDocuments()
+          .then((result) {
+        List<UserViewModel> listOfUsers = [];
+        for (var snapShot in result.documents) {
+          if (snapShot.data['uid'] != user.uid) {
+            listOfUsers.add(UserViewModel.fromJson(snapShot.data));
+          }
         }
-      }
-      print(listOfUsers);
-      return listOfUsers;
+
+        return listOfUsers;
+      });
     });
   }
 }

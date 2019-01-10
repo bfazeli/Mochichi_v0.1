@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'strings.dart';
 import 'cardflipper.dart';
+import './services/user_crud.dart';
+import './services/loader.dart';
+import 'user_data.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,6 +31,24 @@ Widget _buildAppBar() {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<UserViewModel> users;
+
+  void cards() {
+    UserManagement().fetchAllUsers().then((result) {
+      setState(() {
+              users = result;
+            });
+    });
+  }
+
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      print("cards funx starting");
+      cards();
+    }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +62,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         appBar: _buildAppBar(),
         body: Center(
-          child: CardFlipper(),
+          child: users != null ? CardFlipper(
+            cards: users,
+          ) : Loader(),
           //Container(
           //   child: Column(
           //     mainAxisAlignment: MainAxisAlignment.center,
