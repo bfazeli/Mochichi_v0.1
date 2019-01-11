@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'user_data.dart';
 import 'photobrowser.dart';
 
 class ProfileCard extends StatefulWidget {
+  final UserViewModel viewModel;
+
+  ProfileCard({
+    this.viewModel,
+  });
+
+
   @override
   _ProfileCardState createState() => _ProfileCardState();
 }
@@ -10,10 +18,7 @@ class _ProfileCardState extends State<ProfileCard> {
   
   Widget _buildBackground() {
     return PhotoBrowser(
-      photoAssetPaths: [
-        'assets/images/pic1.jpg',
-        'assets/images/pic2.jpg'
-      ],
+      photoUrlPaths: widget.viewModel.imageUrls,
       visiblePhotoIndex: 1,
     );
   }
@@ -46,7 +51,7 @@ class _ProfileCardState extends State<ProfileCard> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      'First Last',
+                      widget.viewModel.name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24.0

@@ -50,7 +50,7 @@ class SelectedPhotoIndicator extends StatelessWidget {
 
   List<Widget> _buildIndicators() {
     List<Widget> indicators = [];
-    for (var i = 0; i < photoCount; i++) {
+    for (var i = 1; i <= photoCount; i++) {
       indicators.add(
         i == visiblePhotoIndex ? _buildActiveIndicator() : _buildInactiveIndicator()
       );

@@ -91,11 +91,11 @@ class _CardFlipperState extends State<CardFlipper>
     int index = -1;
     return widget.cards.map((UserViewModel viewModel) {
       ++index;
-      return _buildCard(index, numCards, scrollPercent);
+      return _buildCard(viewModel, index, numCards, scrollPercent);
     }).toList();
   }
 
-  Widget _buildCard(int cardIndex, int cardCount, double scrollPercent) {
+  Widget _buildCard(UserViewModel viewModel, int cardIndex, int cardCount, double scrollPercent) {
     // Determine how many cards scrolled to the left
     final cardScrollPercent = scrollPercent /
         (1 /
@@ -103,7 +103,9 @@ class _CardFlipperState extends State<CardFlipper>
 
     return FractionalTranslation(
         translation: Offset((cardIndex - cardScrollPercent), 0.0),
-        child: ProfileCard());
+        child: ProfileCard(
+          viewModel: viewModel,
+        ));
   }
 
   @override

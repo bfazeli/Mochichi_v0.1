@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'selectedphotoindicator.dart';
+import './services/loader.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PhotoBrowser extends StatefulWidget {
-  final List<String> photoAssetPaths;
+  final Map<String, String> photoUrlPaths;
   final int visiblePhotoIndex;
 
   PhotoBrowser({
-    this.photoAssetPaths,
+    this.photoUrlPaths,
     this.visiblePhotoIndex,
   });
 
@@ -36,14 +38,17 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
   }
 
   void _prevImage() {
+    print("Before $visiblePhotoIndex");
     setState(() {
-      visiblePhotoIndex = visiblePhotoIndex > 0 ? visiblePhotoIndex - 1 : 0;
+      visiblePhotoIndex = visiblePhotoIndex > 1 ? visiblePhotoIndex - 1 : 1;
+      print("After $visiblePhotoIndex");
     });
+    
   }
 
   void _nextImage() {
     setState(() {
-      visiblePhotoIndex = visiblePhotoIndex < widget.photoAssetPaths.length - 1
+      visiblePhotoIndex = visiblePhotoIndex < widget.photoUrlPaths.length
           ? visiblePhotoIndex + 1
           : visiblePhotoIndex;
     });
@@ -100,8 +105,9 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
       fit: StackFit.expand,
       children: <Widget>[
         // Photo
-        Image.asset(
-          widget.photoAssetPaths[visiblePhotoIndex],
+        CachedNetworkImage(
+          placeholder: Loader(),
+          imageUrl: widget.photoUrlPaths["imageUrl$visiblePhotoIndex"],
           fit: BoxFit.cover,
         ),
 
@@ -111,7 +117,7 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
           left: 0.0,
           right: 0.0,
           child: SelectedPhotoIndicator(
-            photoCount: widget.photoAssetPaths.length,
+            photoCount: widget.photoUrlPaths.length,
             visiblePhotoIndex: visiblePhotoIndex,
           ),
         ),
