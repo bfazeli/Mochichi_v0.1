@@ -4,9 +4,11 @@ import 'photobrowser.dart';
 
 class ProfileCard extends StatefulWidget {
   final UserViewModel viewModel;
+  final double parallaxPercent;
 
   ProfileCard({
     this.viewModel,
+    this.parallaxPercent = 0.0,   // Default to 0
   });
 
 
@@ -20,6 +22,7 @@ class _ProfileCardState extends State<ProfileCard> {
     return PhotoBrowser(
       photoUrlPaths: widget.viewModel.imageUrls,
       visiblePhotoIndex: 1,
+      parallaxPercent: widget.parallaxPercent,
     );
   }
 
@@ -59,7 +62,7 @@ class _ProfileCardState extends State<ProfileCard> {
                     ),
                   ),
                   Text(
-                    'Some description',
+                    'Some description',     // Change this to widget.viewModel.desc?
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0

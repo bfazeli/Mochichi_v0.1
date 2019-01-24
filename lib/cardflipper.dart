@@ -100,11 +100,13 @@ class _CardFlipperState extends State<CardFlipper>
     final cardScrollPercent = scrollPercent /
         (1 /
             cardCount); // Amount of scroll representing 1 card moving off screen
+    final parallax = scrollPercent - (cardIndex / cardCount);
 
     return FractionalTranslation(
         translation: Offset((cardIndex - cardScrollPercent), 0.0),
         child: ProfileCard(
           viewModel: viewModel,
+          parallaxPercent: parallax,
         ));
   }
 

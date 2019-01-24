@@ -6,10 +6,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 class PhotoBrowser extends StatefulWidget {
   final Map<String, String> photoUrlPaths;
   final int visiblePhotoIndex;
+  final double parallaxPercent;
 
   PhotoBrowser({
     this.photoUrlPaths,
     this.visiblePhotoIndex,
+    this.parallaxPercent,
   });
 
   @override
@@ -38,12 +40,9 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
   }
 
   void _prevImage() {
-    print("Before $visiblePhotoIndex");
     setState(() {
       visiblePhotoIndex = visiblePhotoIndex > 1 ? visiblePhotoIndex - 1 : 1;
-      print("After $visiblePhotoIndex");
     });
-    
   }
 
   void _nextImage() {
@@ -105,10 +104,16 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
       fit: StackFit.expand,
       children: <Widget>[
         // Photo
-        CachedNetworkImage(
-          placeholder: Loader(),
-          imageUrl: widget.photoUrlPaths["imageUrl$visiblePhotoIndex"],
-          fit: BoxFit.cover,
+        FractionalTranslation(      // Not working on simulator, try device to see if it works. If it doesn't, take it out
+          translation: Offset(widget.parallaxPercent * 3.0, 0.0),
+          child: OverflowBox(
+            maxWidth: double.infinity,
+            child: CachedNetworkImage(
+              placeholder: Loader(),
+              imageUrl: widget.photoUrlPaths["imageUrl$visiblePhotoIndex"],
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
 
         // Photo Indicator
