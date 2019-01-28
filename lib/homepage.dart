@@ -5,6 +5,7 @@ import 'cardflipper.dart';
 import './services/user_crud.dart';
 import './services/loader.dart';
 import 'user_data.dart';
+import 'bottombar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,18 +37,18 @@ class _HomePageState extends State<HomePage> {
   void cards() {
     UserManagement().fetchAllUsers().then((result) {
       setState(() {
-              users = result;
-            });
+        users = result;
+      });
     });
   }
 
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      print("cards funx starting");
-      cards();
-    }
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("cards funx starting");
+    cards();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,37 +62,45 @@ class _HomePageState extends State<HomePage> {
       child: new Scaffold(
         backgroundColor: Colors.white,
         appBar: _buildAppBar(),
-        body: Center(
-          child: users != null ? CardFlipper(
-            cards: users,
-          ) : Loader(),
-          //Container(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       Text("You are now logged in"),
-          //       SizedBox(
-          //         height: 15.0,
-          //       ),
-          //       OutlineButton(
-          //         borderSide: BorderSide(
-          //           color: Colors.red, style: BorderStyle.solid, width: 3.0
-          //         ),
-          //         child: Text("Logout"),
-          //         onPressed: () {
-          //           FirebaseAuth.instance.signOut()
-          //           .then((value) {
-          //             Navigator.of(context).pushReplacementNamed('/landingpage');
-          //           })
-          //           .catchError((error) {
-          //             print(error);
-          //           });
-          //         },
-          //       )
-          //     ],
-          //   ),
-          // ),
-        ),
+        body: Column(children: <Widget>[
+          Flexible(
+              child: users != null
+                  ? CardFlipper(
+                      cards: users,
+                    )
+                  : Center(child: Loader())),
+          BottomBar(
+            cardCount: users != null ? users.length : 0,
+            scrollPercent: 0.0,
+          ),
+        ]
+            //Container(
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: <Widget>[
+            //       Text("You are now logged in"),
+            //       SizedBox(
+            //         height: 15.0,
+            //       ),
+            //       OutlineButton(
+            //         borderSide: BorderSide(
+            //           color: Colors.red, style: BorderStyle.solid, width: 3.0
+            //         ),
+            //         child: Text("Logout"),
+            //         onPressed: () {
+            //           FirebaseAuth.instance.signOut()
+            //           .then((value) {
+            //             Navigator.of(context).pushReplacementNamed('/landingpage');
+            //           })
+            //           .catchError((error) {
+            //             print(error);
+            //           });
+            //         },
+            //       )
+            //     ],
+            //   ),
+            // ),
+            ),
       ),
     );
   }
