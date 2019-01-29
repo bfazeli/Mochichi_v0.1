@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'scrollindicator.dart';
 
 class BottomBar extends StatefulWidget {
   final int cardCount;
@@ -17,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, bottom: 15),
+      padding: const EdgeInsets.only(bottom: 30),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
@@ -25,13 +26,20 @@ class _BottomBarState extends State<BottomBar> {
           Flexible(
             child: Center(
               child: Icon(
-                Icons.settings,
+                Icons.minimize,
                 color: Colors.blueAccent,
               ),
             ),
           ),
           Flexible(
-            child: Container(),
+            child: Container(
+              width: double.infinity,
+              height: 5.0,
+              child: ScrollIndicator(
+                cardCount: widget.cardCount,
+                scrollPercent: widget.scrollPercent,
+              ),
+            ),
           ),
           Flexible(
             child: Center(
