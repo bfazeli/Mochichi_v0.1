@@ -6,9 +6,11 @@ import 'profilecard.dart';
 
 class CardFlipper extends StatefulWidget {
   final List<UserViewModel> cards;
+  final Function(double scrollPercent) onScroll;
 
   CardFlipper({
     this.cards,
+    this.onScroll,
   });
 
   @override
@@ -36,6 +38,9 @@ class _CardFlipperState extends State<CardFlipper>
         setState(() {
           scrollPercent = lerpDouble(
               finishScrollStart, finishScrollEnd, finishScrollController.value);
+          if (widget.onScroll != null) {
+            widget.onScroll(scrollPercent);
+          }
         });
       });
   }
@@ -65,6 +70,9 @@ class _CardFlipperState extends State<CardFlipper>
       scrollPercent =
           (startDragPercentScroll + (-singleCardDragPercent / numCards))
               .clamp(0.0, 1.0 - (1 / numCards));
+      if (widget.onScroll != null) {
+        widget.onScroll(scrollPercent);
+      }
     });
   }
 
@@ -95,7 +103,8 @@ class _CardFlipperState extends State<CardFlipper>
     }).toList();
   }
 
-  Widget _buildCard(UserViewModel viewModel, int cardIndex, int cardCount, double scrollPercent) {
+  Widget _buildCard(UserViewModel viewModel, int cardIndex, int cardCount,
+      double scrollPercent) {
     // Determine how many cards scrolled to the left
     final cardScrollPercent = scrollPercent /
         (1 /

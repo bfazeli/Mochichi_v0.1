@@ -32,6 +32,7 @@ Widget _buildAppBar() {
 }
 
 class _HomePageState extends State<HomePage> {
+  double scrollPercent = 0.0;
   List<UserViewModel> users;
 
   void cards() {
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("cards funx starting");
+
     cards();
   }
 
@@ -67,11 +68,15 @@ class _HomePageState extends State<HomePage> {
               child: users != null
                   ? CardFlipper(
                       cards: users,
-                    )
+                      onScroll: (double scrollPercent) {
+                        setState(() {
+                          this.scrollPercent = scrollPercent;
+                        });
+                      })
                   : Center(child: Loader())),
           BottomBar(
             cardCount: users != null ? users.length : 0,
-            scrollPercent: 0.0,
+            scrollPercent: this.scrollPercent,
           ),
         ]
             //Container(
