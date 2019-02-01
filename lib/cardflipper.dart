@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'user_data.dart';
 import 'profilecard.dart';
 
@@ -103,6 +105,51 @@ class _CardFlipperState extends State<CardFlipper>
     }).toList();
   }
 
+  Matrix4 _buildCardProjection(double scrollPercent) {
+    // Pre-multiplied matrix of a projection matrix and a view matrix.
+    //
+    // Projection matrix is a simplified perspective matrix
+    // http://web.iitd.ac.in/~hegde/cad/lecture/L9_persproj.pdf
+    // in the form of
+    // [[1.0, 0.0, 0.0, 0.0],
+    //  [0.0, 1.0, 0.0, 0.0],
+    //  [0.0, 0.0, 1.0, 0.0],
+    //  [0.0, 0.0, -perspective, 1.0]]
+    //
+    // View matrix is a simplified camera view matrix.
+    // Basically re-scales to keep object at original size at angle = 0 at
+    // any radius in the form of
+    // [[1.0, 0.0, 0.0, 0.0],
+    //  [0.0, 1.0, 0.0, 0.0],
+    //  [0.0, 0.0, 1.0, -radius],
+    //  [0.0, 0.0, 0.0, 1.0]]
+    final perspective = 0.002;
+    final radius = 1.0;
+    final angle = scrollPercent * pi / 8;
+    final horizontalTranslation = 0.0;
+    Matrix4 projection = new Matrix4.identity()
+      ..setEntry(0, 0, 1 / radius)
+      ..setEntry(1, 1, 1 / radius)
+      ..setEntry(3, 2, -perspective)
+      ..setEntry(2, 3, -radius)
+      ..setEntry(3, 3, perspective * radius + 1.0);
+
+    // Model matrix by first translating the object from the origin of the world
+    // by radius in the z axis and then rotating against the world.
+    final rotationPointMultiplier = angle > 0.0 ? angle / angle.abs() : 1.0;
+    // print('Angle: $angle');
+    projection *= new Matrix4.translationValues(
+            horizontalTranslation + (rotationPointMultiplier * 300.0),
+            0.0,
+            0.0) *
+        new Matrix4.rotationY(angle) *
+        new Matrix4.translationValues(0.0, 0.0, radius) *
+        new Matrix4.translationValues(
+            -rotationPointMultiplier * 300.0, 0.0, 0.0);
+
+    return projection;
+  }
+
   Widget _buildCard(UserViewModel viewModel, int cardIndex, int cardCount,
       double scrollPercent) {
     // Determine how many cards scrolled to the left
@@ -113,9 +160,12 @@ class _CardFlipperState extends State<CardFlipper>
 
     return FractionalTranslation(
         translation: Offset((cardIndex - cardScrollPercent), 0.0),
-        child: ProfileCard(
-          viewModel: viewModel,
-          parallaxPercent: parallax,
+        child: Transform(
+          transform: _buildCardProjection(cardScrollPercent - cardIndex),
+          child: ProfileCard(
+            viewModel: viewModel,
+            parallaxPercent: parallax,
+          ),
         ));
   }
 
